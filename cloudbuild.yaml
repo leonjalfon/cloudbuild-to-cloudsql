@@ -15,4 +15,4 @@ steps:
 # [START cloudbuild_private_worker_pool]
 options:
   pool:
-    name: 'projects/225324244167/locations/europe-west1/workerPools/test-workerpool'
+    name: 'projects/225324244167/locations/europe-west1/workerPools/sql-workpool'
