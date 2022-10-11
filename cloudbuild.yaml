@@ -1,6 +1,14 @@
 steps:
   # Test Connectivity with Cloud SQL (Postgres)
-  - name: 'ubuntu'
-    #args: ['./script.sh']
-    args: apt-get update -y && apt-get install postgresql-client -y && PGPASSWORD='!QAZ2wsx' psql -h 34.79.94.226 -U postgres -w
-    timeout: 240s
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    timeout: 120s
+    entrypoint: 'bash'
+    args:
+    - '-eEuo'
+    - 'pipefail'
+    - '-c'
+    - |-
+      apt-get update -y
+      apt-get install postgresql-client -y
+      PGPASSWORD='!QAZ2wsx' psql -h 34.79.94.226 -U postgres -w
+      \q
