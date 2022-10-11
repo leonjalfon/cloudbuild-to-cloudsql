@@ -10,5 +10,5 @@ steps:
       apt-get install postgresql-client -y
       PGPASSWORD='!QAZ2wsx' psql -h 34.79.94.226 -U postgres -w
 options:
-pool:
-  name: 'projects/225324244167/locations/europe-west1/workerPools/test-workerpool'
+  pool:
+    name: 'projects/225324244167/locations/europe-west1/workerPools/test-workerpool'
