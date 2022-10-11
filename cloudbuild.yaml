@@ -1,7 +1,7 @@
 steps:
   # Test Connectivity with Cloud SQL (Postgres)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    timeout: 120s
+    timeout: 240s
     entrypoint: 'bash'
     args:
     - '-c'
