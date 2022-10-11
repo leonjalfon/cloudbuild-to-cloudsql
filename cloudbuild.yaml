@@ -8,7 +8,7 @@ steps:
     - |-
       apt-get update -y
       apt-get install postgresql-client -y
-      PGPASSWORD='!QAZ2wsx' psql -h 34.79.94.226 -U postgres -w
+      PGPASSWORD='!QAZ2wsx' psql -h 10.121.192.3 -U postgres -w
 
 # [START cloudbuild_private_worker_pool]
 options:
