@@ -12,7 +12,7 @@ steps:
       apt-get install postgresql-client -y
       PGPASSWORD='!QAZ2wsx' psql -h 10.121.192.3 -U postgres -w
 
-# [START cloudbuild_private_worker_pool]
+# Specify Private Pool to Use
 options:
   pool:
-    name: 'projects/225324244167/locations/europe-west1/workerPools/sql-workpool'
+    name: 'projects/225324244167/locations/europe-west1/workerPools/sql-pool'
