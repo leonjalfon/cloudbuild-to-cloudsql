@@ -1,0 +1,5 @@
+steps:
+  # Test Connectivity with Cloud SQL (Postgres)
+  - name: 'ubuntu'
+    args: ['./script.sh']
+    timeout: 240s
