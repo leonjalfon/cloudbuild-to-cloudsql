@@ -1,18 +1,56 @@
+timeout: 3600s
 steps:
-  # Test Connectivity with Cloud SQL (Postgres)
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    timeout: 240s
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |-
-      apt-get update -y
-      apt install inetutils-ping -y
-      ping -w 1 10.121.192.3
-      apt-get install postgresql-client -y
-      PGPASSWORD='!QAZ2wsx' psql -h 10.121.192.3 -U postgres -w
+  # --- Setup
+  - name: node:16
+    entrypoint: yarn
+    args: [
+      'install'
+    ]
+  - name: node:16
+    entrypoint: yarn
+    env:
+      - 'NODE_ENV=${_NODE_ENV}'
+      - 'GOOGLECLOUD_PROJECT=${_GOOGLECLOUD_PROJECT}'
+    args: [
+      'ts-node',
+      'devops/scripts/generateEnvFile.ts'
+    ]
 
-# Specify Private Pool to Use
+      # --- migration  
+  - name: node:16
+    entrypoint: yarn
+    args: [
+      'ci:migrate'
+    ]
+
+  # --- Build
+  - name: node:16
+    entrypoint: yarn
+    args: [
+      'run',
+      'contracts:compile'
+    ]
+
+  - name: node:16
+    entrypoint: yarn
+    args: [
+      'run',
+      'build:functions'
+    ]
+
+  - name: node:16
+    entrypoint: yarn
+    args: [
+      'test'
+    ]
+
+  - name: 'bash'
+    args: [
+      'cp',
+      '-R',
+      './prisma',
+      './dist/backend/functions/prisma'
+    ]
 options:
   pool:
-    name: 'projects/225324244167/locations/europe-west1/workerPools/sql-pool'
+    name: 'projects/225324244167/locations/europe-west6/workerPools/test'
